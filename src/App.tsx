@@ -1,10 +1,9 @@
-import { Button } from "@/components/ui/button"
+import { AudioRecorder } from './components/AudioRecorder';
 
 export default function App() {
-
-  return (
-    <>
-      <Button onClick={() => console.log('JOE MAMA')}>Button</Button>
-    </>
-  )
+    return (
+        <div className="flex items-center justify-center h-screen">
+          <AudioRecorder mimeType="audio/webm"></AudioRecorder>
+        </div>
+    );
 }
