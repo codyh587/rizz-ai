@@ -1,0 +1,23 @@
+{
+    "tabWidth": 4,
+    "useTabs": false,
+    "singleQuote": true,
+    "importOrder": [
+        "^(react/(.*)$)|^(react$)",
+        "^(next/(.*)$)|^(next$)",
+        "<THIRD_PARTY_MODULES>",
+        "",
+        "^types$",
+        "^~/types/(.*)$",
+        "^~/config/(.*)$",
+        "^~/lib/(.*)$",
+        "^~/hooks/(.*)$",
+        "^~/components/ui/(.*)$",
+        "^~/components/(.*)$",
+        "^~/styles/(.*)$",
+        "^~/app/(.*)$",
+        "",
+        "^[./]"
+    ],
+    "importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"]
+}
