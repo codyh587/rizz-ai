@@ -1,31 +1,32 @@
 import { AudioPlayer } from './components/AudioPlayer';
 import { AudioRecorder } from './components/AudioRecorder';
 import { AudioTranscriber } from './components/AudioTranscriber';
-import { useRecord } from './hooks/useRecord';
-import { useTranscribe } from './hooks/useTranscribe';
+import { useRecord, MimeType } from './hooks/useRecord';
+import { useTranscriber } from './hooks/useTranscriber';
 
-const mimeType = 'audio/webm';
+const mimeType = MimeType.Wav;
 
 export default function App() {
-    const {
-        recordingStatus,
-        permission,
-        audioUrl,
-        getMicrophonePermission,
-        startRecording,
-        stopRecording,
-        invalidateData,
-    } = useRecord();
+    const { recordStatus, permission, audioUrl, audioBuffer, ...recordUtils } =
+        useRecord(mimeType);
 
-    const { transcribeStatus, transcribeData, transcribe, invalidateData } =
-        useTranscribe(audioUrl);
+    const transcriber = useTranscriber();
 
     return (
         <div className="flex flex-col items-center justify-center h-screen">
             <div className="flex flex-col gap-5">
-                <AudioRecorder mimeType={mimeType} onRecorded={setAudioUrl} />
+                <AudioRecorder
+                    recordStatus={recordStatus}
+                    permission={permission}
+                    onPermission={recordUtils.getMicrophonePermission}
+                    onRecord={recordUtils.startRecord}
+                    onStop={recordUtils.stopRecord}
+                />
                 <AudioPlayer audioUrl={audioUrl} />
-                <AudioTranscriber audioUrl={audioUrl} />
+                <AudioTranscriber
+                    audioBuffer={audioBuffer}
+                    transcriber={transcriber}
+                />
             </div>
         </div>
     );

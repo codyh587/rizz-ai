@@ -1,24 +1,31 @@
-
 import { Button } from '@/components/ui/button';
+import { RecordStatus } from '../hooks/useRecord';
 
+interface AudioRecorderProps {
+    recordStatus: RecordStatus;
+    permission: boolean;
+    onPermission: () => void;
+    onRecord: () => void;
+    onStop: () => void;
+}
 
-export function AudioRecorder({ permission, recordingStatus }) {
+export function AudioRecorder({
+    recordStatus,
+    permission,
+    onPermission,
+    onRecord,
+    onStop,
+}: AudioRecorderProps) {
+    const recording: boolean = recordStatus === RecordStatus.Recording;
 
     return (
         <>
-            {!permission && (
-                <Button onClick={getMicrophonePermission}>
-                    Get permission
+            {!permission ? (
+                <Button onClick={onPermission}>Get permission</Button>
+            ) : (
+                <Button onClick={!recording ? onRecord : onStop}>
+                    {!recording ? "Start" : "Stop"} recording
                 </Button>
-            )}
-
-            {permission &&
-                [RecordingState.Inactive, RecordingState.Paused].includes(
-                    recordingStatus
-                ) && <Button onClick={startRecording}>Start recording</Button>}
-
-            {permission && recordingStatus === RecordingState.Recording && (
-                <Button onClick={stopRecording}>Stop recording</Button>
             )}
         </>
     );

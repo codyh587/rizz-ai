@@ -1,4 +1,5 @@
-import { useState, useRef } from 'react';
+import { useCallback, useState, useRef } from 'react';
+import Constants from '../utils/Constants';
 
 export enum RecordStatus {
     Inactive,
@@ -14,21 +15,31 @@ export enum MimeType {
     Aac = 'audio/aac',
 }
 
-export interface useRecordProps {
-    mimeType: MimeType
-}
-
-export function useRecord({ mimeType }: useRecordProps) {
+export function useRecord(mimeType: MimeType) {
     const [permission, setPermission] = useState<boolean>(false);
     const [stream, setStream] = useState<MediaStream | null>(null);
     const [audioChunks, setAudioChunks] = useState<Blob[]>([]);
+    const [audioBuffer, setAudioBuffer] = useState<AudioBuffer | null>(null);
     const [audioUrl, setAudioUrl] = useState<string | null>(null);
-    const [recordingStatus, setRecordingStatus] = useState<RecordStatus>(
+    const [recordStatus, setRecordStatus] = useState<RecordStatus>(
         RecordStatus.Inactive
     );
     const mediaRecorder: useRef<MediaRecorder | null> = useRef(null);
 
-    const getMicrophonePermission = async () => {
+    function handleSetBuffer(data: Blob) {
+        const fileReader = new FileReader();
+        fileReader.onloadend = async () => {
+            const audioCTX = new AudioContext({
+                sampleRate: Constants.SAMPLING_RATE,
+            });
+            const arrayBuffer = fileReader.result as ArrayBuffer;
+            const decoded = await audioCTX.decodeAudioData(arrayBuffer);
+            setAudioBuffer(decoded);
+        };
+        fileReader.readAsArrayBuffer(data);
+    }
+
+    const getMicrophonePermission = useCallback(async () => {
         if ('MediaRecorder' in window) {
             try {
                 const streamData = await navigator.mediaDevices.getUserMedia({
@@ -43,10 +54,10 @@ export function useRecord({ mimeType }: useRecordProps) {
         } else {
             alert('The MediaRecorder API is not supported in your browser.');
         }
-    };
+    }, []);
 
-    const startRecording = async () => {
-        setRecordingStatus(RecordStatus.Recording);
+    const startRecord = useCallback(async () => {
+        setRecordStatus(RecordStatus.Recording);
         //create new Media recorder instance using the stream
         const media = new MediaRecorder(stream!, { type: mimeType });
         //set the MediaRecorder instance to the mediaRecorder ref
@@ -63,10 +74,10 @@ export function useRecord({ mimeType }: useRecordProps) {
         };
 
         setAudioChunks(localAudioChunks);
-    };
+    }, [mimeType, stream]);
 
-    const stopRecording = async () => {
-        setRecordingStatus(RecordStatus.Inactive);
+    const stopRecord = useCallback(async () => {
+        setRecordStatus(RecordStatus.Inactive);
         //stops the recording instance
         mediaRecorder.current.stop();
 
@@ -76,22 +87,25 @@ export function useRecord({ mimeType }: useRecordProps) {
             //creates a playable URL from the blob file.
             const audioUrl = URL.createObjectURL(audioBlob);
             setAudioUrl(audioUrl);
+            handleSetBuffer(audioBlob);
             setAudioChunks([]);
         };
-    };
+    }, [audioChunks, mimeType]);
 
-    const invalidateData = () => {
-        setRecordingStatus(RecordStatus.Inactive);
+    const invalidateData = useCallback(() => {
+        setRecordStatus(RecordStatus.Inactive);
+        setAudioBuffer(null);
         setAudioUrl(null);
-    };
+    }, []);
 
     return {
-        recordingStatus,
+        recordStatus,
         permission,
         audioUrl,
+        audioBuffer,
         getMicrophonePermission,
-        startRecording,
-        stopRecording,
-        invalidateData
+        startRecord,
+        stopRecord,
+        invalidateData,
     };
 }
