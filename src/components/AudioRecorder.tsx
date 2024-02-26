@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { RecordStatus } from '../hooks/useRecord';
+import { RecordStatus } from '../hooks/useRecorder';
 
 interface AudioRecorderProps {
     recordStatus: RecordStatus;
@@ -24,7 +24,7 @@ export function AudioRecorder({
                 <Button onClick={onPermission}>Get permission</Button>
             ) : (
                 <Button onClick={!recording ? onRecord : onStop}>
-                    {!recording ? "Start" : "Stop"} recording
+                    {!recording ? 'Start' : 'Stop'} recording
                 </Button>
             )}
         </>

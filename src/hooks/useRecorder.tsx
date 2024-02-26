@@ -15,7 +15,18 @@ export enum MimeType {
     Aac = 'audio/aac',
 }
 
-export function useRecord(mimeType: MimeType) {
+export interface Recorder {
+    recordStatus: RecordStatus;
+    permission: boolean;
+    audioUrl: string | null;
+    audioBuffer: AudioBuffer | null;
+    getMicrophonePermission: () => void;
+    startRecord: () => void;
+    stopRecord: () => void;
+    invalidateData: () => void;
+}
+
+export function useRecorder(mimeType: MimeType): Recorder {
     const [permission, setPermission] = useState<boolean>(false);
     const [stream, setStream] = useState<MediaStream | null>(null);
     const [audioChunks, setAudioChunks] = useState<Blob[]>([]);
@@ -26,7 +37,7 @@ export function useRecord(mimeType: MimeType) {
     );
     const mediaRecorder: useRef<MediaRecorder | null> = useRef(null);
 
-    function handleSetBuffer(data: Blob) {
+    const handleSetBuffer = useCallback((data: Blob) => {
         const fileReader = new FileReader();
         fileReader.onloadend = async () => {
             const audioCTX = new AudioContext({
@@ -37,7 +48,7 @@ export function useRecord(mimeType: MimeType) {
             setAudioBuffer(decoded);
         };
         fileReader.readAsArrayBuffer(data);
-    }
+    }, []);
 
     const getMicrophonePermission = useCallback(async () => {
         if ('MediaRecorder' in window) {

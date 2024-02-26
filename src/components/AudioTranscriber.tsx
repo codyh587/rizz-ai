@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
 import { Transcriber } from '@/hooks/useTranscriber';
 
 interface AudioTranscriberProps {
@@ -18,7 +17,6 @@ export function AudioTranscriber({
             ) : (
                 <Button onClick={() => transcriber.start(audioBuffer)}>Transcribe</Button>
             )}
-            {transcriber.output && <Textarea defaultValue={transcriber.output.text} />}
         </>
     );
 }
