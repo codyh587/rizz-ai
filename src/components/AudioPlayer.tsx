@@ -5,11 +5,5 @@ interface AudioPlayerProps {
 export function AudioPlayer({ audioUrl }: AudioPlayerProps) {
     const src: string | undefined = audioUrl ? audioUrl : undefined;
 
-    return (
-        <audio
-            className={'bg-transparent' + (audioUrl ? '' : '')}
-            src={src}
-            controls
-        />
-    );
+    return <audio className="w-full" src={src} controls />;
 }

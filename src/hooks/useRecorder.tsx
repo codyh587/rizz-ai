@@ -1,4 +1,4 @@
-import { useCallback, useState, useRef } from 'react';
+import { useCallback, useState, useRef, useMemo } from 'react';
 import Constants from '../utils/Constants';
 
 export enum RecordStatus {
@@ -109,7 +109,18 @@ export function useRecorder(mimeType: MimeType): Recorder {
         setAudioUrl(null);
     }, []);
 
-    return {
+    const recorder = useMemo(() => {
+        return {
+            recordStatus,
+            permission,
+            audioUrl,
+            audioBuffer,
+            getMicrophonePermission,
+            startRecord,
+            stopRecord,
+            invalidateData,
+        };
+    }, [
         recordStatus,
         permission,
         audioUrl,
@@ -118,5 +129,7 @@ export function useRecorder(mimeType: MimeType): Recorder {
         startRecord,
         stopRecord,
         invalidateData,
-    };
+    ])
+
+    return recorder;
 }

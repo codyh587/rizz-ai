@@ -1,16 +1,22 @@
 import { Textarea } from '@/components/ui/textarea';
-import { Transcriber } from '@/hooks/useTranscriber';
 
 interface TranscribeOutputProps {
-    transcriber: Transcriber;
+    loading: boolean;
+    text: string | undefined;
+    onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
 }
 
-export function TranscribeOutput({ transcriber }: TranscribeOutputProps) {
+export function TranscribeOutput({
+    loading,
+    text,
+    onChange,
+}: TranscribeOutputProps) {
     return (
         <Textarea
-            defaultValue={
-                transcriber.output ? transcriber.output.text : undefined
-            }
+            onChange={onChange}
+            disabled={loading}
+            placeholder={loading ? 'Working...' : undefined}
+            defaultValue={text}
         />
     );
 }

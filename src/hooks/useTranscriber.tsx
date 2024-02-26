@@ -1,6 +1,6 @@
-import { useCallback, useMemo, useState } from "react";
-import { useWorker } from "./useWorker";
-import Constants from "../utils/Constants";
+import { useCallback, useMemo, useState } from 'react';
+import { useWorker } from './useWorker';
+import Constants from '../utils/Constants';
 
 interface ProgressItem {
     file: string;
@@ -14,7 +14,7 @@ interface ProgressItem {
 interface TranscriberUpdateData {
     data: [
         string,
-        { chunks: { text: string; timestamp: [number, number | null] }[] },
+        { chunks: { text: string; timestamp: [number, number | null] }[] }
     ];
     text: string;
 }
@@ -53,7 +53,7 @@ export interface Transcriber {
 
 export function useTranscriber(): Transcriber {
     const [transcript, setTranscript] = useState<TranscriberData | undefined>(
-        undefined,
+        undefined
     );
     const [isBusy, setIsBusy] = useState(false);
     const [isModelLoading, setIsModelLoading] = useState(false);
@@ -64,7 +64,7 @@ export function useTranscriber(): Transcriber {
         const message = event.data;
         // Update the state with the result
         switch (message.status) {
-            case "progress":
+            case 'progress':
                 // Model file progress: update one of the progress items.
                 setProgressItems((prev) =>
                     prev.map((item) => {
@@ -72,10 +72,10 @@ export function useTranscriber(): Transcriber {
                             return { ...item, progress: message.progress };
                         }
                         return item;
-                    }),
+                    })
                 );
                 break;
-            case "update":
+            case 'update':
                 // Received partial update
                 // console.log("update", message);
                 // eslint-disable-next-line no-case-declarations
@@ -86,7 +86,7 @@ export function useTranscriber(): Transcriber {
                     chunks: updateMessage.data[1].chunks,
                 });
                 break;
-            case "complete":
+            case 'complete':
                 // Received complete transcript
                 // console.log("complete", message);
                 // eslint-disable-next-line no-case-declarations
@@ -99,24 +99,24 @@ export function useTranscriber(): Transcriber {
                 setIsBusy(false);
                 break;
 
-            case "initiate":
+            case 'initiate':
                 // Model file start load: add a new progress item to the list.
                 setIsModelLoading(true);
                 setProgressItems((prev) => [...prev, message]);
                 break;
-            case "ready":
+            case 'ready':
                 setIsModelLoading(false);
                 break;
-            case "error":
+            case 'error':
                 setIsBusy(false);
                 alert(
-                    `${message.data.message} This is most likely because you are using Safari on an M1/M2 Mac. Please try again from Chrome, Firefox, or Edge.\n\nIf this is not the case, please file a bug report.`,
+                    `${message.data.message} This is most likely because you are using Safari on an M1/M2 Mac. Please try again from Chrome, Firefox, or Edge.\n\nIf this is not the case, please file a bug report.`
                 );
                 break;
-            case "done":
+            case 'done':
                 // Model file loaded: remove the progress item from the list.
                 setProgressItems((prev) =>
-                    prev.filter((item) => item.file !== message.file),
+                    prev.filter((item) => item.file !== message.file)
                 );
                 break;
 
@@ -129,13 +129,13 @@ export function useTranscriber(): Transcriber {
     const [model, setModel] = useState<string>(Constants.DEFAULT_MODEL);
     const [subtask, setSubtask] = useState<string>(Constants.DEFAULT_SUBTASK);
     const [quantized, setQuantized] = useState<boolean>(
-        Constants.DEFAULT_QUANTIZED,
+        Constants.DEFAULT_QUANTIZED
     );
     const [multilingual, setMultilingual] = useState<boolean>(
-        Constants.DEFAULT_MULTILINGUAL,
+        Constants.DEFAULT_MULTILINGUAL
     );
     const [language, setLanguage] = useState<string>(
-        Constants.DEFAULT_LANGUAGE,
+        Constants.DEFAULT_LANGUAGE
     );
 
     const onInputChange = useCallback(() => {
@@ -157,7 +157,7 @@ export function useTranscriber(): Transcriber {
 
                     audio = new Float32Array(left.length);
                     for (let i = 0; i < audioData.length; ++i) {
-                        audio[i] = SCALING_FACTOR * (left[i] + right[i]) / 2;
+                        audio[i] = (SCALING_FACTOR * (left[i] + right[i])) / 2;
                     }
                 } else {
                     // If the audio is not stereo, we can just use the first channel:
@@ -171,11 +171,11 @@ export function useTranscriber(): Transcriber {
                     quantized,
                     subtask: multilingual ? subtask : null,
                     language:
-                        multilingual && language !== "auto" ? language : null,
+                        multilingual && language !== 'auto' ? language : null,
                 });
             }
         },
-        [webWorker, model, multilingual, quantized, subtask, language],
+        [webWorker, model, multilingual, quantized, subtask, language]
     );
 
     const transcriber = useMemo(() => {

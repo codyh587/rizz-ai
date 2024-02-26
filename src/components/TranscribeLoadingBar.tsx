@@ -18,7 +18,7 @@ export function TranscribeLoadingBar({
     return (
         <>
             <div className="flex justify-center gap-3">
-                <Label>Downloading models... </Label>
+                <Label>Downloading models {}...</Label>
                 <Loader2 className="h-3 w-3 animate-spin mt-0.5" />
             </div>
             <Progress value={progress} />
