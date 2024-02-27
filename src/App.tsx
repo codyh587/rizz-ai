@@ -40,7 +40,6 @@ export default function App() {
                 <TranscribeLoadingBar transcriber={transcriber} />
             )}
             <TranscribeOutput
-                key={userMessage}
                 loading={!transcriber.isModelLoading && transcriber.isBusy}
                 text={userMessage}
                 onChange={(e) => setUserMessage(e.target.value)}

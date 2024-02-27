@@ -15,8 +15,7 @@ export function TranscribeOutput({
         <Textarea
             onChange={onChange}
             disabled={loading}
-            placeholder={loading ? 'Working...' : undefined}
-            defaultValue={text}
+            value={loading ? 'Working...' : text}
         />
     );
 }
