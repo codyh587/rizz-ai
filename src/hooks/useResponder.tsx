@@ -79,10 +79,10 @@ export function useResponder(): Responder {
     const runChat = useCallback(
         async (input: string) => {
             const result = await chat.sendMessage(input);
-            console.log(result);
             const response = result.response.text();
+            setResponseText(response);
             // TEMPORARY: SHORTEN AI RESPONSE SO I CAN SAVE ON ELEVENLABS CREDITS
-            setResponseText(response.slice(0, 10));
+            // setResponseText(response.slice(0, 10));
         },
         [chat]
     );

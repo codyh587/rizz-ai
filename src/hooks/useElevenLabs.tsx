@@ -2,15 +2,19 @@ import Constants from '../utils/Constants';
 import { useCallback, useMemo, useState } from 'react';
 
 export interface ElevenLabs {
+    loading: boolean;
     audioUrl: string | null;
     textToSpeech: (input: string) => void;
     play: () => void;
 }
 
 export function useElevenLabs(): ElevenLabs {
+    const [loading, setLoading] = useState(false);
     const [audioUrl, setAudioUrl] = useState<string | null>(null);
 
     const textToSpeech = useCallback(async (input: string) => {
+        setLoading(true);
+
         const api_key = import.meta.env.VITE_ELEVENLABS_API_KEY!;
         const voice_id = Constants.ELEVENLABS_VOICE_ID;
         const model = Constants.ELEVENLABS_MODEL;
@@ -29,7 +33,7 @@ export function useElevenLabs(): ElevenLabs {
         };
 
         fetch(
-            `https://api.elevenlabs.io/v1/text-to-speech/${voice_id}?optimize_streaming_latency=0`,
+            `https://api.elevenlabs.io/v1/text-to-speech/${voice_id}?optimize_streaming_latency=2`,
             options
         )
             .then((response) => response.blob())
@@ -39,6 +43,8 @@ export function useElevenLabs(): ElevenLabs {
                 setAudioUrl(url);
             })
             .catch((err) => console.error(err));
+
+        setLoading(false);
     }, []);
 
     const play = useCallback(() => {
@@ -50,8 +56,8 @@ export function useElevenLabs(): ElevenLabs {
     }, [audioUrl]);
 
     const elevenlabs: ElevenLabs = useMemo(() => {
-        return { audioUrl, textToSpeech, play };
-    }, [audioUrl, textToSpeech, play]);
+        return { loading, audioUrl, textToSpeech, play };
+    }, [loading, audioUrl, textToSpeech, play]);
 
     return elevenlabs;
 }

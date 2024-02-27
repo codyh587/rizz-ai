@@ -25,13 +25,15 @@ export default function App() {
     }, [transcriber.output]);
 
     function testEleven() {
-        elevenlabs.textToSpeech('Miguel has a gigantic penis');
+        elevenlabs.textToSpeech('Joe Mama');
     }
 
     useEffect(() => {
         console.log(elevenlabs.audioUrl);
         elevenlabs.play();
     }, [elevenlabs]);
+
+    console.log(responder.response)
 
     return (
         <div className="flex flex-col justify-center gap-5 w-5/12 mx-auto my-20">
