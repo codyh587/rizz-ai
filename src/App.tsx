@@ -15,7 +15,6 @@ export default function App() {
     const transcriber = useTranscriber();
     const responder = useResponder();
     const elevenlabs = useElevenLabs();
-
     const [userMessage, setUserMessage] = useState<string | undefined>(
         undefined
     );
@@ -24,16 +23,16 @@ export default function App() {
         setUserMessage(transcriber.output?.text);
     }, [transcriber.output]);
 
-    function testEleven() {
-        elevenlabs.textToSpeech('Joe Mama');
-    }
+    useEffect(() => {
+        if (responder.response === null) {
+            return;
+        }
+        elevenlabs.textToSpeech(responder.response!);
+    }, [responder.response]);
 
     useEffect(() => {
-        console.log(elevenlabs.audioUrl);
         elevenlabs.play();
-    }, [elevenlabs]);
-
-    console.log(responder.response)
+    }, [elevenlabs.audioUrl]);
 
     return (
         <div className="flex flex-col justify-center gap-5 w-5/12 mx-auto my-20">
@@ -53,7 +52,7 @@ export default function App() {
                 <TranscribeLoadingBar transcriber={transcriber} />
             )}
             <TranscribeOutput
-                loading={!transcriber.isModelLoading && transcriber.isBusy}
+                loading={transcriber.isModelLoading || transcriber.isBusy}
                 text={userMessage}
                 onChange={(e) => setUserMessage(e.target.value)}
             />
@@ -61,7 +60,6 @@ export default function App() {
                 Send to Pokimane
             </Button>
             <p>{responder.response}</p>
-            <Button onClick={testEleven}>Test Elevenlabs</Button>
         </div>
     );
 }

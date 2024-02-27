@@ -1,6 +1,10 @@
 import Constants from '../utils/Constants';
 import { useCallback, useMemo, useState } from 'react';
 
+// SHORTEN AI RESPONSE TO SAVE ON ELEVENLABS CREDITS
+const DEBUG_SHORTEN_AI_RESPONSE = true;
+const DEBUG_SHORTEN_LENGTH_TO = 10;
+
 export interface ElevenLabs {
     loading: boolean;
     audioUrl: string | null;
@@ -13,6 +17,13 @@ export function useElevenLabs(): ElevenLabs {
     const [audioUrl, setAudioUrl] = useState<string | null>(null);
 
     const textToSpeech = useCallback(async (input: string) => {
+        if (DEBUG_SHORTEN_AI_RESPONSE) {
+            if (DEBUG_SHORTEN_LENGTH_TO < 5) {
+                return;
+            }
+            input = input.slice(0, DEBUG_SHORTEN_LENGTH_TO);
+        }
+
         setLoading(true);
 
         const api_key = import.meta.env.VITE_ELEVENLABS_API_KEY!;
@@ -39,7 +50,6 @@ export function useElevenLabs(): ElevenLabs {
             .then((response) => response.blob())
             .then((blob) => {
                 const url = URL.createObjectURL(blob);
-                console.log(url);
                 setAudioUrl(url);
             })
             .catch((err) => console.error(err));
