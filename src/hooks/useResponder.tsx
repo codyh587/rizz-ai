@@ -4,17 +4,41 @@ import {
     HarmBlockThreshold,
 } from '@google/generative-ai';
 import Constants from '../utils/Constants';
-import { useState, useMemo, useCallback } from 'react';
+import { useElevenLabs } from './useElevenLabs';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 
 export interface Responder {
+    isLoading: boolean;
     response?: string;
     start: (input: string) => void;
 }
 
 export function useResponder(): Responder {
+    const elevenlabs = useElevenLabs();
+    const [loading, setLoading] = useState(false);
     const [responseText, setResponseText] = useState<string | undefined>(
         undefined
     );
+
+    useEffect(() => {
+        if (responseText === undefined) {
+            return;
+        }
+        if (Constants.DEBUG_LOG_RESPONDER_OUTPUT) {
+            console.log(`Response received: ${responseText}`);
+        }
+        elevenlabs.textToSpeech(responseText!);
+    }, [responseText]);
+
+    useEffect(() => {
+        if (elevenlabs.audioUrl === null) {
+            return;
+        }
+        if (Constants.DEBUG_LOG_RESPONDER_OUTPUT) {
+            console.log(`Audio received: ${elevenlabs.audioUrl}`);
+        }
+        elevenlabs.play();
+    }, [elevenlabs.audioUrl]);
 
     const chat = useMemo(() => {
         const genAI = new GoogleGenerativeAI(
@@ -78,16 +102,18 @@ export function useResponder(): Responder {
 
     const runChat = useCallback(
         async (input: string) => {
+            setLoading(true);
             const result = await chat.sendMessage(input);
             const response = result.response.text();
             setResponseText(response);
+            setLoading(false);
         },
         [chat]
     );
 
     const responder = useMemo(() => {
-        return { response: responseText, start: runChat };
-    }, [responseText, runChat]);
+        return { isLoading: loading, response: responseText, start: runChat };
+    }, [loading, responseText, runChat]);
 
     return responder;
 }

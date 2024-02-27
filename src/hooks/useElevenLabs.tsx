@@ -1,30 +1,22 @@
 import Constants from '../utils/Constants';
 import { useCallback, useMemo, useState } from 'react';
 
-// SHORTEN AI RESPONSE TO SAVE ON ELEVENLABS CREDITS
-const DEBUG_SHORTEN_AI_RESPONSE = true;
-const DEBUG_SHORTEN_LENGTH_TO = 10;
-
 export interface ElevenLabs {
-    loading: boolean;
     audioUrl: string | null;
     textToSpeech: (input: string) => void;
     play: () => void;
 }
 
 export function useElevenLabs(): ElevenLabs {
-    const [loading, setLoading] = useState(false);
     const [audioUrl, setAudioUrl] = useState<string | null>(null);
 
     const textToSpeech = useCallback(async (input: string) => {
-        if (DEBUG_SHORTEN_AI_RESPONSE) {
-            if (DEBUG_SHORTEN_LENGTH_TO < 5) {
+        if (Constants.DEBUG_SHORTEN_ELEVENLABS_RESPONSE) {
+            if (Constants.DEBUG_SHORTEN_ELEVENLABS_LENGTH_TO <= 0) {
                 return;
             }
-            input = input.slice(0, DEBUG_SHORTEN_LENGTH_TO);
+            input = input.slice(0, Constants.DEBUG_SHORTEN_ELEVENLABS_LENGTH_TO);
         }
-
-        setLoading(true);
 
         const api_key = import.meta.env.VITE_ELEVENLABS_API_KEY!;
         const voice_id = Constants.ELEVENLABS_VOICE_ID;
@@ -53,21 +45,15 @@ export function useElevenLabs(): ElevenLabs {
                 setAudioUrl(url);
             })
             .catch((err) => console.error(err));
-
-        setLoading(false);
     }, []);
 
     const play = useCallback(() => {
-        if (audioUrl === null) {
-            return;
-        }
         new Audio(audioUrl).play();
-        setAudioUrl(null);
     }, [audioUrl]);
 
     const elevenlabs: ElevenLabs = useMemo(() => {
-        return { loading, audioUrl, textToSpeech, play };
-    }, [loading, audioUrl, textToSpeech, play]);
+        return { audioUrl, textToSpeech, play };
+    }, [audioUrl, textToSpeech, play]);
 
     return elevenlabs;
 }
