@@ -1,4 +1,3 @@
-import axios, { AxiosRequestConfig } from 'axios';
 import Constants from '../utils/Constants';
 import { useCallback, useMemo, useState } from 'react';
 
@@ -30,7 +29,7 @@ export function useElevenLabs(): ElevenLabs {
         };
 
         fetch(
-            `https://api.elevenlabs.io/v1/text-to-speech/${voice_id}?optimize_streaming_latency=1`,
+            `https://api.elevenlabs.io/v1/text-to-speech/${voice_id}?optimize_streaming_latency=0`,
             options
         )
             .then((response) => response.blob())
@@ -47,6 +46,7 @@ export function useElevenLabs(): ElevenLabs {
             return;
         }
         new Audio(audioUrl).play();
+        setAudioUrl(null);
     }, [audioUrl]);
 
     const elevenlabs: ElevenLabs = useMemo(() => {

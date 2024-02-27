@@ -5,16 +5,16 @@ import { AudioRecorder } from './components/AudioRecorder';
 import { AudioTranscriber } from './components/AudioTranscriber';
 import { TranscribeOutput } from './components/TranscribeOutput';
 import { TranscribeLoadingBar } from './components/TranscribeLoadingBar';
+import { useElevenLabs } from './hooks/useElevenLabs';
 import { useRecorder, MimeType } from './hooks/useRecorder';
 import { useTranscriber } from './hooks/useTranscriber';
 import { useResponder } from './hooks/useResponder';
-
-import { useElevenLabs } from './hooks/useElevenLabs';
 
 export default function App() {
     const recorder = useRecorder(MimeType.Wav);
     const transcriber = useTranscriber();
     const responder = useResponder();
+    const elevenlabs = useElevenLabs();
 
     const [userMessage, setUserMessage] = useState<string | undefined>(
         undefined
@@ -24,9 +24,8 @@ export default function App() {
         setUserMessage(transcriber.output?.text);
     }, [transcriber.output]);
 
-    const elevenlabs = useElevenLabs();
     function testEleven() {
-        elevenlabs.textToSpeech('Ew no way');
+        elevenlabs.textToSpeech('Miguel has a gigantic penis');
     }
 
     useEffect(() => {
