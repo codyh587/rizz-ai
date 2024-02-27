@@ -9,6 +9,8 @@ import { useRecorder, MimeType } from './hooks/useRecorder';
 import { useTranscriber } from './hooks/useTranscriber';
 import { useResponder } from './hooks/useResponder';
 
+import { useElevenLabs } from './hooks/useElevenLabs';
+
 export default function App() {
     const recorder = useRecorder(MimeType.Wav);
     const transcriber = useTranscriber();
@@ -21,6 +23,16 @@ export default function App() {
     useEffect(() => {
         setUserMessage(transcriber.output?.text);
     }, [transcriber.output]);
+
+    const elevenlabs = useElevenLabs();
+    function testEleven() {
+        elevenlabs.textToSpeech('Ew no way');
+    }
+
+    useEffect(() => {
+        console.log(elevenlabs.audioUrl);
+        elevenlabs.play();
+    }, [elevenlabs]);
 
     return (
         <div className="flex flex-col justify-center gap-5 w-5/12 mx-auto my-20">
@@ -48,6 +60,7 @@ export default function App() {
                 Send to Pokimane
             </Button>
             <p>{responder.response}</p>
+            <Button onClick={testEleven}>Test Elevenlabs</Button>
         </div>
     );
 }

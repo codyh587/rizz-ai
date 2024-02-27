@@ -8,10 +8,10 @@ import { useState, useMemo, useCallback } from 'react';
 
 export interface Responder {
     response?: string;
-    start: () => void;
+    start: (input: string) => void;
 }
 
-export function useResponder() {
+export function useResponder(): Responder {
     const [responseText, setResponseText] = useState<string | undefined>(
         undefined
     );
