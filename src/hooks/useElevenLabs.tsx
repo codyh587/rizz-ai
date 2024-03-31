@@ -48,7 +48,7 @@ export function useElevenLabs(): ElevenLabs {
     }, []);
 
     const play = useCallback(() => {
-        new Audio(audioUrl).play();
+        new Audio(audioUrl!).play();
     }, [audioUrl]);
 
     const elevenlabs: ElevenLabs = useMemo(() => {

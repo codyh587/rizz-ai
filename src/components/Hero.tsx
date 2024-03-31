@@ -21,6 +21,7 @@ export function Hero() {
             {/* Main container */}
             <section className="container grid lg:grid-cols-10 place-items-center py-20 mx-7 md:py-32 gap-10">
                 <div className="col-span-6 text-center lg:text-start space-y-6">
+
                     {/* Main splash text */}
                     <h1 className="bg-[radial-gradient(138.06%_1036.51%_at_95.25%_-2.54%,_#7ED4FD_14.06%,#709DF7_51.02%,#4D78EF_79.09%)] bg-clip-text text-5xl leading-[1.2] tracking-tighter text-transparent sm:text-center sm:text-[4rem] sm:leading-[4.75rem] lg:text-left">
                         Make your rizz incredible, without the embarrassing help
@@ -36,14 +37,14 @@ export function Hero() {
                     {/* Buttons */}
                     <div className="mt-12 hidden lg:flex">
                         <button className="rounded-full bg-sky-300 py-2 px-6 font-semibold text-slate-900 hover:bg-sky-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-slate-900">
-                            Get started
+                            Get Started
                         </button>
                         <a
                             href="https://github.com/leoMirandaa/shadcn-landing-page.git"
                             target="_blank"
                             className="flex ml-6 rounded-full border border-white/10 bg-slate-700/40 py-2 px-6 font-semibold text-white hover:border-white/20 hover:bg-slate-700/60 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-slate-900"
                         >
-                            Github Repository
+                            GitHub Repository
                             <GitHubLogoIcon className="ml-2 w-5 h-5 mt-0.5" />
                         </a>
                     </div>

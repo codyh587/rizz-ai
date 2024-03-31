@@ -1,4 +1,4 @@
-import { useCallback, useState, useRef, useMemo } from 'react';
+import { useCallback, useState, useRef, useMemo, MutableRefObject } from 'react';
 import Constants from '../utils/Constants';
 
 export enum RecordStatus {
@@ -35,7 +35,7 @@ export function useRecorder(mimeType: MimeType): Recorder {
     const [recordStatus, setRecordStatus] = useState<RecordStatus>(
         RecordStatus.Inactive
     );
-    const mediaRecorder: useRef<MediaRecorder | null> = useRef(null);
+    const mediaRecorder: MutableRefObject<MediaRecorder | null> = useRef(null);
 
     const handleSetBuffer = useCallback((data: Blob) => {
         const fileReader = new FileReader();
