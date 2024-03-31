@@ -28,11 +28,11 @@ export function Slider() {
         <>
             <h3
                 id="slider"
-                className="text-center mt-5 pt-3 mb-28 text-3xl leading-[1.5] tracking-tighter sm:text-[2.5rem] sm:leading-[3.5rem]"
+                className="text-center mt-5 pt-5 mb-24 text-3xl leading-[1.5] tracking-tighter sm:text-[2.5rem] sm:leading-[3.5rem]"
             >
                 AI companions to help you master your rizz
             </h3>
-            <div className="flex relative mb-28 ">
+            <div className="flex relative mb-36 ">
                 <ImageSection />
                 <ImageSection />
                 <div

@@ -1,4 +1,9 @@
-function MicrophoneIcon() {
+import { useState, useEffect, ReactNode } from 'react';
+import { useRecorder, MimeType } from '../hooks/useRecorder';
+import { useTranscriber } from '../hooks/useTranscriber';
+import { useResponder } from '../hooks/useResponder';
+
+function RecordIcon() {
     return (
         <svg
             width="54"
@@ -29,7 +34,7 @@ function PauseIcon() {
 function LoadingIcon() {
     return (
         <svg
-            className="w-12 h-12 text-gray-300 animate-spin"
+            className="w-12 h-12 text-white animate-spin"
             viewBox="0 0 64 64"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +51,7 @@ function LoadingIcon() {
             <path
                 d="M32 3C36.5778 3 41.0906 4.08374 45.1692 6.16256C49.2477 8.24138 52.7762 11.2562 55.466 14.9605C58.1558 18.6647 59.9304 22.9531 60.6448 27.4748C61.3591 31.9965 60.9928 36.6232 59.5759 40.9762"
                 stroke="currentColor"
-                stroke-width="5"
+                stroke-width="6"
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 className="text-rose-500"
@@ -55,13 +60,37 @@ function LoadingIcon() {
     );
 }
 
+interface BigRedButtonProps {
+    children: ReactNode;
+}
+
+function BigRedButton({ children }: BigRedButtonProps) {
+    return (
+        <div className="flex justify-center items-center w-32 h-32 rounded-full border border-white/10 bg-rose-500  hover:border-white/20 hover:bg-rose-500/80 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-slate-900">
+            {children}
+        </div>
+    );
+}
+
 export function Record() {
+    const recorder = useRecorder(MimeType.Wav);
+    const transcriber = useTranscriber();
+    const responder = useResponder();
+    const [userMessage, setUserMessage] = useState<string | undefined>(
+        undefined
+    );
+
+    useEffect(() => {
+        setUserMessage(transcriber.output?.text);
+    }, [transcriber.output]);
+
     return (
         <>
-            <div className="flex justify-center">
-                <div className="flex justify-center items-center w-36 h-36 rounded-full border border-white/10 bg-rose-500  hover:border-white/20 hover:bg-rose-500/75 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-slate-900">
-                    <LoadingIcon />
-                </div>
+            <div className="flex flex-col items-center justify-center">
+                <BigRedButton>
+                    <RecordIcon />
+                </BigRedButton>
+                <p className="mt-10 font-medium">Downloading models...</p>
             </div>
         </>
     );
