@@ -21,21 +21,11 @@ export function useResponder(): Responder {
     );
 
     useEffect(() => {
-        if (responseText === undefined) {
-            return;
-        }
-        if (Constants.DEBUG_LOG_RESPONDER_OUTPUT) {
-            console.log(`Response received: ${responseText}`);
-        }
-        elevenlabs.textToSpeech(responseText!);
-    }, [responseText]);
-
-    useEffect(() => {
         if (elevenlabs.audioUrl === null) {
             return;
         }
         if (Constants.DEBUG_LOG_RESPONDER_OUTPUT) {
-            console.log(`Audio received: ${elevenlabs.audioUrl}`);
+            console.log(`RizzAudio: ${elevenlabs.audioUrl}`);
         }
         elevenlabs.play();
     }, [elevenlabs.audioUrl]);
@@ -102,10 +92,20 @@ export function useResponder(): Responder {
 
     const runChat = useCallback(
         async (input: string) => {
+            if (Constants.DEBUG_LOG_RESPONDER_OUTPUT) {
+                console.log(`RizzRequest: ${input}`);
+            }
+
             setLoading(true);
             const result = await chat.sendMessage(input);
             const response = result.response.text();
-            setResponseText(response);
+            setResponseText(response)
+
+            if (Constants.DEBUG_LOG_RESPONDER_OUTPUT) {
+                console.log(`RizzResponse: ${response}`);
+            }
+
+            elevenlabs.textToSpeech(response)
             setLoading(false);
         },
         [chat]

@@ -61,14 +61,15 @@ function LoadingIcon() {
 }
 
 interface BigRedButtonProps {
+    onClick: () => void
     children: ReactNode;
 }
 
-function BigRedButton({ children }: BigRedButtonProps) {
+function BigRedButton({ onClick, children }: BigRedButtonProps) {
     return (
-        <div className="flex justify-center items-center w-32 h-32 rounded-full border border-white/10 bg-rose-500  hover:border-white/20 hover:bg-rose-500/80 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-slate-900">
+        <button className="flex justify-center items-center w-32 h-32 rounded-full border border-white/10 bg-rose-500  hover:border-white/20 hover:bg-rose-500/80 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-slate-900" onClick={onClick}>
             {children}
-        </div>
+        </button>
     );
 }
 
@@ -76,18 +77,17 @@ export function Record() {
     const recorder = useRecorder(MimeType.Wav);
     const transcriber = useTranscriber();
     const responder = useResponder();
-    const [userMessage, setUserMessage] = useState<string | undefined>(
-        undefined
-    );
 
     useEffect(() => {
-        setUserMessage(transcriber.output?.text);
+        // setUserMessage(transcriber.output?.text);
     }, [transcriber.output]);
+
+    const clickAction = () => {}
 
     return (
         <>
             <div className="flex flex-col items-center justify-center">
-                <BigRedButton>
+                <BigRedButton onClick={clickAction}>
                     <RecordIcon />
                 </BigRedButton>
                 <p className="mt-10 font-medium">Downloading models...</p>
