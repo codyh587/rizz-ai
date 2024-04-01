@@ -16,6 +16,7 @@
     "clsx": "^2.1.0",
     "framer-motion": "^11.0.24",
     "react": "^18.2.0",
+    "react-animated-3d-card": "^1.0.2",
     "react-dom": "^18.2.0",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7"
