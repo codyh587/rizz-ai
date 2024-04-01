@@ -1,3 +1,5 @@
+import { Meteors } from './ui/meteors';
+
 function TitlePoints() {
     return (
         <div className="flex items-center justify-center text-sm font-medium uppercase tracking-[0.16em]">
@@ -89,6 +91,7 @@ export function Hero() {
         <>
             <TitlePoints />
             <MainSplash />
+            <Meteors number={25} />
         </>
     );
 }

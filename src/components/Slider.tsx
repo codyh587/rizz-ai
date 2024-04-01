@@ -1,3 +1,5 @@
+import { SparklesCore } from './ui/sparkles';
+
 const images: string[] = [
     'src/assets/lilypichu.jpg',
     'src/assets/fuslie.jpg',
