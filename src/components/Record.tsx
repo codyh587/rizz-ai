@@ -69,8 +69,7 @@ export function Record() {
 
     useEffect(() => {
         if (transcriber.output && !transcriber.isBusy) {
-            console.log(transcriber.output);
-            // responder.start(transcriber.output?.text)
+            responder.start(transcriber.output?.text)
         }
     }, [transcriber.output, transcriber.isBusy]);
 

@@ -24,9 +24,6 @@ export function useResponder(): Responder {
         if (elevenlabs.audioUrl === null) {
             return;
         }
-        if (Constants.DEBUG_LOG_RESPONDER_OUTPUT) {
-            console.log(`RizzAudio: ${elevenlabs.audioUrl}`);
-        }
         elevenlabs.play();
     }, [elevenlabs.audioUrl]);
 
