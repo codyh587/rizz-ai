@@ -9,13 +9,14 @@ const images: string[] = [
     'src/assets/vaporeon.jpg',
 ];
 
-const sliderImagesStyle = { animation: 'swipe 25000ms linear infinite' };
-
 function ImageSection() {
     return (
-        <div className="flex" style={sliderImagesStyle}>
+        <div
+            className="flex"
+            style={{ animation: 'swipe 25000ms linear infinite' }}
+        >
             {images.map((src) => (
-                <div className="w-32 h-32 grayscale mx-16">
+                <div key={src} className="w-32 h-32 grayscale mx-16">
                     <img className="rounded-full" src={src} />
                 </div>
             ))}
@@ -27,7 +28,7 @@ export function Slider() {
     return (
         <>
             <h3
-                id="slider"
+                id="player"
                 className="text-center mt-5 pt-5 mb-24 text-3xl leading-[1.5] tracking-tighter sm:text-[2.5rem] sm:leading-[3.5rem]"
             >
                 AI companions to help you master your rizz

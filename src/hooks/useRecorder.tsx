@@ -1,5 +1,12 @@
-import { useCallback, useState, useRef, useMemo, MutableRefObject } from 'react';
+import {
+    useCallback,
+    useState,
+    useRef,
+    useMemo,
+    MutableRefObject,
+} from 'react';
 import Constants from '../utils/Constants';
+import { create } from 'domain';
 
 export enum RecordStatus {
     Inactive,
@@ -26,7 +33,7 @@ export interface Recorder {
     invalidateData: () => void;
 }
 
-export function useRecorder(mimeType: MimeType): Recorder {
+export function useRecorder(mimeType: MimeType = MimeType.Webm): Recorder {
     const [permission, setPermission] = useState<boolean>(false);
     const [stream, setStream] = useState<MediaStream | null>(null);
     const [audioChunks, setAudioChunks] = useState<Blob[]>([]);
@@ -70,7 +77,7 @@ export function useRecorder(mimeType: MimeType): Recorder {
     const startRecord = useCallback(async () => {
         setRecordStatus(RecordStatus.Recording);
         //create new Media recorder instance using the stream
-        const media = new MediaRecorder(stream!, { type: mimeType });
+        const media = new MediaRecorder(stream!, { mimeType: mimeType });
         //set the MediaRecorder instance to the mediaRecorder ref
         mediaRecorder.current = media;
         //invokes the start method to start the recording process
@@ -96,8 +103,8 @@ export function useRecorder(mimeType: MimeType): Recorder {
             //creates a blob file from the audiochunks data
             const audioBlob = new Blob(audioChunks, { type: mimeType });
             //creates a playable URL from the blob file.
-            const audioUrl = URL.createObjectURL(audioBlob);
-            setAudioUrl(audioUrl);
+            const createAudioUrl = URL.createObjectURL(audioBlob);
+            setAudioUrl(createAudioUrl);
             handleSetBuffer(audioBlob);
             setAudioChunks([]);
         };
@@ -129,7 +136,7 @@ export function useRecorder(mimeType: MimeType): Recorder {
         startRecord,
         stopRecord,
         invalidateData,
-    ])
+    ]);
 
     return recorder;
 }

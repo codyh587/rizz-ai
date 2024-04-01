@@ -6,12 +6,12 @@ import { AudioRecorder } from './components/AudioRecorder';
 import { AudioTranscriber } from './components/AudioTranscriber';
 import { TranscribeOutput } from './components/TranscribeOutput';
 import { TranscribeLoadingBar } from './components/TranscribeLoadingBar';
-import { useRecorder, MimeType } from './hooks/useRecorder';
+import { useRecorder } from './hooks/useRecorder';
 import { useTranscriber } from './hooks/useTranscriber';
 import { useResponder } from './hooks/useResponder';
 
 export default function App() {
-    const recorder = useRecorder(MimeType.Wav);
+    const recorder = useRecorder();
     const transcriber = useTranscriber();
     const responder = useResponder();
     const [userMessage, setUserMessage] = useState<string | undefined>(
@@ -20,7 +20,13 @@ export default function App() {
 
     useEffect(() => {
         setUserMessage(transcriber.output?.text);
+        console.log(transcriber.output?.text)
     }, [transcriber.output]);
+
+
+    useEffect(() => {
+        console.log(transcriber.isBusy);
+    }, [transcriber.isBusy]);
 
     return (
         <div className="flex flex-col justify-center gap-5 w-5/12 mx-auto my-20">
