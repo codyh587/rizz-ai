@@ -1,14 +1,12 @@
-import { SparklesCore } from './ui/sparkles';
-
 const images: string[] = [
-    'src/assets/lilypichu.jpg',
-    'src/assets/fuslie.jpg',
-    'src/assets/valkyrae.jpg',
-    'src/assets/blau.jpg',
-    'src/assets/gordon.jpg',
+    'src/assets/lilypichu.webp',
+    'src/assets/fuslie.webp',
+    'src/assets/valkyrae.webp',
+    'src/assets/blau.webp',
+    'src/assets/gordon.webp',
     'src/assets/xqc.webp',
-    'src/assets/gojo.jpg',
-    'src/assets/vaporeon.jpg',
+    'src/assets/gojo.webp',
+    'src/assets/vaporeon.webp',
 ];
 
 function ImageSection() {
@@ -44,7 +42,7 @@ export function Slider() {
                 >
                     <img
                         className="w-64 h-64 rounded-full"
-                        src={'src/assets/pokimane.jpg'}
+                        src={'src/assets/pokimane.webp'}
                     />
                 </div>
             </div>

@@ -74,6 +74,13 @@ function Buttons() {
     );
 }
 
+function ThreeDCard() {
+    return (
+        <div>
+        </div>
+    );
+}
+
 function MainSplash() {
     return (
         <section className="container grid lg:grid-cols-10 lg:ml-7 place-items-center py-20 md:py-32 gap-10">
@@ -81,6 +88,9 @@ function MainSplash() {
                 <MainText />
                 <Subtitle />
                 <Buttons />
+            </div>
+            <div className="col-span-4">
+                <ThreeDCard />
             </div>
         </section>
     );

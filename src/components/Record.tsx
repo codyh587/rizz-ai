@@ -47,7 +47,7 @@ interface BigRedButtonProps {
 function BigRedButton({ onClick, children }: BigRedButtonProps) {
     return (
         <button
-            className="flex justify-center items-center w-32 h-32 rounded-full border border-white/10 bg-rose-500  hover:border-white/40 hover:bg-rose-500/80"
+            className="flex relative justify-center items-center w-32 h-32 rounded-full border border-white/10 bg-rose-500  hover:border-white/40 hover:bg-rose-500/80"
             onClick={onClick}
         >
             {children}
@@ -65,11 +65,11 @@ export function Record() {
 
     useEffect(() => {
         transcriber.start(recorder.audioBuffer!);
-    }, [recorder.audioBuffer])
+    }, [recorder.audioBuffer]);
 
     useEffect(() => {
         if (transcriber.output && !transcriber.isBusy) {
-            responder.start(transcriber.output?.text)
+            responder.start(transcriber.output?.text);
         }
     }, [transcriber.output, transcriber.isBusy]);
 
@@ -140,7 +140,10 @@ export function Record() {
         Icon = RecordIcon;
     } else {
         // Recording
-        clickAction = () => {recorder.stopRecord(); messageSent = true};
+        clickAction = () => {
+            recorder.stopRecord();
+            messageSent = true;
+        };
         subtitleText = `Recording ${getTimeElapsed(seconds)}`;
         Icon = StopIcon;
     }
