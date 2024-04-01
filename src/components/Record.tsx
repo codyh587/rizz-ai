@@ -47,7 +47,7 @@ interface BigRedButtonProps {
 function BigRedButton({ onClick, children }: BigRedButtonProps) {
     return (
         <button
-            className="flex relative justify-center items-center w-32 h-32 rounded-full border border-white/10 bg-rose-500  hover:border-white/40 hover:bg-rose-500/80"
+            className="flex relative justify-center items-center w-32 h-32 rounded-full shadow-md border border-white/10 bg-rose-500  hover:border-white/40 hover:bg-rose-500/80"
             onClick={onClick}
         >
             {children}
@@ -56,13 +56,13 @@ function BigRedButton({ onClick, children }: BigRedButtonProps) {
 }
 
 export function Record() {
-    // Transcriber states
     const recorder = useRecorder();
     const transcriber = useTranscriber();
     const responder = useResponder();
     const [seconds, setSeconds] = useState<number>(0);
     const [progress, setProgress] = useState(0);
 
+    // Transcriber updates
     useEffect(() => {
         transcriber.start(recorder.audioBuffer!);
     }, [recorder.audioBuffer]);
@@ -73,6 +73,7 @@ export function Record() {
         }
     }, [transcriber.output, transcriber.isBusy]);
 
+    // Recording timer
     useEffect(() => {
         let interval: NodeJS.Timeout | undefined;
 
@@ -86,6 +87,7 @@ export function Record() {
         return () => clearInterval(interval);
     }, [recorder.recordStatus]);
 
+    // Download progress counter
     useEffect(() => {
         const currentItemProgress =
             transcriber.progressItems.reduce((accumulator, item) => {
@@ -93,7 +95,7 @@ export function Record() {
             }, 0) / transcriber.progressItems.length;
 
         if (currentItemProgress > progress) {
-            setProgress(parseFloat(currentItemProgress.toFixed(2)));
+            setProgress(Math.round(currentItemProgress));
         }
     }, [transcriber.progressItems]);
 
@@ -111,7 +113,6 @@ export function Record() {
         return ret;
     }, []);
 
-    // Big Red Button
     let clickAction;
     let subtitleText;
     let Icon;
@@ -135,7 +136,7 @@ export function Record() {
         // Not recording
         clickAction = recorder.startRecord;
         subtitleText = messageSent
-            ? 'Message received!'
+            ? 'Message sent! Response will arrive shortly'
             : 'Click to start recording';
         Icon = RecordIcon;
     } else {

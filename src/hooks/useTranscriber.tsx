@@ -152,8 +152,8 @@ export function useTranscriber(): Transcriber {
                 if (audioData.numberOfChannels === 2) {
                     const SCALING_FACTOR = Math.sqrt(2);
 
-                    let left = audioData.getChannelData(0);
-                    let right = audioData.getChannelData(1);
+                    const left = audioData.getChannelData(0);
+                    const right = audioData.getChannelData(1);
 
                     audio = new Float32Array(left.length);
                     for (let i = 0; i < audioData.length; ++i) {

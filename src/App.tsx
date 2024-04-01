@@ -11,8 +11,8 @@ export default function App() {
             <Hero />
             <RevealOnScroll>
                 <Slider />
-                <Record />
             </RevealOnScroll>
+            <Record />
             <Footer />
         </Background>
     );

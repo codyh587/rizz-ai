@@ -1,38 +1,22 @@
-import { useState, useEffect, useRef, ReactNode } from 'react';
+import { ReactNode } from 'react';
+import { motion } from 'framer-motion';
 
 interface RevealOnScrollProps {
     children: ReactNode;
 }
 
 export function RevealOnScroll({ children }: RevealOnScrollProps) {
-    const [isVisible, setIsVisible] = useState<boolean>(false);
-    const ref = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const scrollObserver = new IntersectionObserver(([entry]) => {
-            if (entry.isIntersecting) {
-                setIsVisible(true);
-                scrollObserver.unobserve(entry.target);
-            }
-        });
-
-        scrollObserver.observe(ref.current!);
-
-        return () => {
-            if (ref.current) {
-                scrollObserver.unobserve(ref.current);
-            }
-        };
-    }, []);
-
     return (
-        <div
-            ref={ref}
-            className={`transition-opacity duration-1000 ${
-                isVisible ? 'opacity-100' : 'opacity-0'
-            }`}
+        <motion.div
+            initial={{ opacity: 0.0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{
+                delay: 0,
+                duration: 0.6,
+                ease: 'easeInOut',
+            }}
         >
             {children}
-        </div>
+        </motion.div>
     );
 }

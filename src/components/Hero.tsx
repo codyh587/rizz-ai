@@ -1,5 +1,5 @@
-import Card from 'react-animated-3d-card';
 import { Meteors } from './ui/meteors';
+import { HeroCard } from './HeroCard';
 
 function TitlePoints() {
     return (
@@ -30,7 +30,7 @@ function MainText() {
 function Subtitle() {
     return (
         <p className="mt-6 max-w-3xl text-2xl leading-[2.5rem] tracking-tight text-center lg:text-left">
-            AI-powered rizz-response software, right at your fingertips.
+            AI-powered rizz response software, right at your fingertips.
         </p>
     );
 }
@@ -75,28 +75,6 @@ function Buttons() {
     );
 }
 
-function MainCard() {
-    return (
-        <Card
-            style={{
-                background:
-                    'linear-gradient(to right, #0f0c29, #302b63, #24243e)',
-                width: '300px',
-                height: '400px',
-            }}
-            shineStrength={0.5}
-            cursorPointer={false}
-        >
-            <div className="flex flex-column justify-center">
-                <img
-                    className="w-32 h-32 rounded-full"
-                    src={'src/assets/pokimane.webp'}
-                />
-            </div>
-        </Card>
-    );
-}
-
 function MainSplash() {
     return (
         <section className="relative container grid lg:grid-cols-10 lg:ml-7 place-items-center py-20 md:py-32">
@@ -106,7 +84,7 @@ function MainSplash() {
                 <Buttons />
             </div>
             <div className="hidden lg:block absolute right-32">
-                <MainCard />
+                <HeroCard />
             </div>
         </section>
     );
