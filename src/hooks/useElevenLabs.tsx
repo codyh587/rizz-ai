@@ -36,7 +36,7 @@ export function useElevenLabs(): ElevenLabs {
         };
 
         fetch(
-            `https://api.elevenlabs.io/v1/text-to-speech/${voice_id}?optimize_streaming_latency=2`,
+            `https://api.elevenlabs.io/v1/text-to-speech/${voice_id}?optimize_streaming_latency=1`,
             options
         )
             .then((response) => response.blob())

@@ -18,7 +18,7 @@ module.exports = {
         },
         extend: {
             animation: {
-                'meteor-effect': 'meteor 5s linear infinite'
+                'meteor-effect': 'meteor 5s linear infinite',
             },
             keyframes: {
                 meteor: {
@@ -31,7 +31,7 @@ module.exports = {
                         transform: 'rotate(215deg) translateX(-500px)',
                         opacity: '0',
                     },
-                }
+                },
             },
         },
     },

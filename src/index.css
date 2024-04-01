@@ -16,3 +16,18 @@
         transform: translateX(-100%);
     }
 }
+
+@keyframes spincard {
+    0% {
+        --rotate: 0deg;
+    }
+    100% {
+        --rotate: 360deg;
+    }
+}
+
+@property --rotate {
+    syntax: '<angle>';
+    initial-value: 132deg;
+    inherits: false;
+}

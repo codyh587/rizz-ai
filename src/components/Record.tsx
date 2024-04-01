@@ -136,7 +136,7 @@ export function Record() {
         // Not recording
         clickAction = recorder.startRecord;
         subtitleText = messageSent
-            ? 'Message sent! Response will arrive shortly'
+            ? 'Message sent! Response arriving shortly'
             : 'Click to start recording';
         Icon = RecordIcon;
     } else {
