@@ -65,7 +65,7 @@ function Buttons() {
                 Get Started
             </a>
             <a
-                href="https://github.com/codyh587/"
+                href="https://github.com/codyh587/rizz-ai"
                 target="_blank"
                 className="flex ml-6 rounded-full border border-white/10 bg-slate-700/40 py-2 px-6 font-semibold text-white hover:border-white/20 hover:bg-slate-700/60 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-slate-900"
             >
