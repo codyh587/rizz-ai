@@ -6,7 +6,6 @@ import {
     MutableRefObject,
 } from 'react';
 import Constants from '../utils/Constants';
-import { create } from 'domain';
 
 export enum RecordStatus {
     Inactive,
@@ -97,9 +96,9 @@ export function useRecorder(mimeType: MimeType = MimeType.Webm): Recorder {
     const stopRecord = useCallback(async () => {
         setRecordStatus(RecordStatus.Inactive);
         //stops the recording instance
-        mediaRecorder.current.stop();
+        mediaRecorder.current!.stop();
 
-        mediaRecorder.current.onstop = () => {
+        mediaRecorder.current!.onstop = () => {
             //creates a blob file from the audiochunks data
             const audioBlob = new Blob(audioChunks, { type: mimeType });
             //creates a playable URL from the blob file.
