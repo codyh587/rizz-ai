@@ -37,12 +37,12 @@ function RecordLogo() {
 
 function GradientLine() {
     return (
-        <div className="w-[40rem] relative">
-            <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-3/4 blur-sm" />
-            <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
-            <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/4 blur-sm" />
-            <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/4" />
-            <div className="absolute inset-0 w-full h-full bg-black [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]" />
+        <div className="relative flex justify-center w-[22rem]">
+            <div className="absolute bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[3px] w-3/4 blur-sm" />
+            <div className="absolute bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-3/4" />
+            <div className="absolute bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[6px] w-1/3 blur-sm" />
+            <div className="absolute bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[2px] w-1/3" />
+            <div className="absolute w-full h-full bg-black [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]" />
         </div>
     );
 }
@@ -69,6 +69,7 @@ export function HeroCard() {
                     height: 'calc(100% - 0.5rem)',
                 }}
             />
+            <span />
             <div className="absolute w-full flex justify-center top-9">
                 <img
                     className="w-28 h-28 rounded-full"
@@ -91,18 +92,24 @@ export function HeroCard() {
             <div className="absolute top-28 right-16">
                 <PhoneLogo />
             </div>
-            <h1 className="absolute top-44 w-full text-4xl font-medium uppercase tracking-[0.16em] text-center text-white">
-                Rizz.AI
-            </h1>
-            <h3 className="absolute top-56 w-full text-1xl font-thin tracking-tight text-center text-white">
-                rizz anytime. anywhere. <br /> powered by AI.
-            </h3>
-            <div className="absolute bottom-20 -right-48">
+
+            <div
+                className="absolute"
+                style={{ left: 'calc(50% - 11rem)', bottom: '4.8rem' }}
+            >
                 <GradientLine />
             </div>
             <div className="absolute bottom-12 flex justify-center w-full">
                 <RecordLogo />
             </div>
+            <h1 className="absolute top-44 w-full text-4xl font-medium uppercase tracking-[0.16em] text-center text-white">
+                Rizz.AI
+            </h1>
+            <h3 className="absolute top-56 w-full text-1xl font-thin tracking-tight text-center text-white">
+                rizz anytime. anywhere.
+                <br />
+                powered by AI.
+            </h3>
         </Card>
     );
 }

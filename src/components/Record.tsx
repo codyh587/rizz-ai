@@ -47,7 +47,7 @@ interface BigRedButtonProps {
 function BigRedButton({ onClick, children }: BigRedButtonProps) {
     return (
         <button
-            className="flex relative justify-center items-center w-32 h-32 rounded-full shadow-md border border-white/10 bg-rose-500  hover:border-white/40 hover:bg-rose-500/80"
+            className="flex relative justify-center items-center w-32 h-32 rounded-full shadow-md border border-white/10 bg-rose-500 hover:bg-rose-500/80"
             onClick={onClick}
         >
             {children}
