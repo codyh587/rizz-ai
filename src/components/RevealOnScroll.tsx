@@ -8,7 +8,7 @@ interface RevealOnScrollProps {
 export function RevealOnScroll({ children }: RevealOnScrollProps) {
     return (
         <motion.div
-            initial={{ opacity: 0.0, y: 15 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{
                 delay: 0,

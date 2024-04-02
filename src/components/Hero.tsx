@@ -1,5 +1,6 @@
 import { Meteors } from './ui/meteors';
 import { HeroCard } from './HeroCard';
+import { RevealOnScroll } from './RevealOnScroll';
 
 function TitlePoints() {
     return (
@@ -84,7 +85,9 @@ function MainSplash() {
                 <Buttons />
             </div>
             <div className="hidden lg:block absolute right-32">
-                <HeroCard />
+                <RevealOnScroll>
+                    <HeroCard />
+                </RevealOnScroll>
             </div>
         </section>
     );
