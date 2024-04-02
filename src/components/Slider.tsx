@@ -33,19 +33,19 @@ export function Slider() {
             >
                 AI companions to help you master your rizz
             </h3>
-                <div className="flex relative mb-36 ">
-                    <ImageSection />
-                    <ImageSection />
-                    <div
-                        className="flex absolute w-full justify-center border-y border-white/10"
-                        style={{ bottom: '-64px' }}
-                    >
-                        <img
-                            className="w-64 h-64 rounded-full"
-                            src={'src/assets/pokimane.webp'}
-                        />
-                    </div>
+            <div className="flex relative mb-36 ">
+                <ImageSection />
+                <ImageSection />
+                <div
+                    className="flex absolute w-full justify-center border-y-2 border-white/10"
+                    style={{ bottom: '-64px' }}
+                >
+                    <img
+                        className="w-64 h-64 rounded-full"
+                        src={'src/assets/pokimane.webp'}
+                    />
                 </div>
+            </div>
         </>
     );
 }
