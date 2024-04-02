@@ -63,7 +63,7 @@ export function HeroCard() {
             cursorPointer={false}
         >
             <div
-                className="absolute bg-black rounded-2xl top-1 left-1"
+                className="absolute bg-slate-950 rounded-2xl top-1 left-1"
                 style={{
                     width: 'calc(100% - 0.5rem)',
                     height: 'calc(100% - 0.5rem)',
@@ -73,7 +73,7 @@ export function HeroCard() {
             <div className="absolute w-full flex justify-center top-9">
                 <img
                     className="w-28 h-28 rounded-full"
-                    src={'src/assets/pokimane.webp'}
+                    src={'src/assets/zendaya.webp'}
                 />
             </div>
             <div
