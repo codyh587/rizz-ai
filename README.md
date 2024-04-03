@@ -1,5 +1,5 @@
 # Rizz.AI
-### AI-powered web application for verbal conversation with AI chatbots.
+### AI-powered web application for verbal conversations with AI personalities.
 https://github.com/codyh587/rizz-ai/assets/108317527/55751448-1fab-40e8-b356-8d99ac56e1ee
 
 ## Built with:
