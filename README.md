@@ -15,7 +15,7 @@ https://github.com/codyh587/rizz-ai/assets/108317527/55751448-1fab-40e8-b356-8d9
 </div>
 
 ## About
-Rizz.AI is a fully browser-based web application which uses AI to verbally respond to oral user messages. Rizz.AI aims to simulate the tumultuous environment of modern social economics through constructed AI personalities. Any resemblance of real-world persons or characeters is strictly coincidental and not intended for commercial use.
+Rizz.AI is a fully browser-based web application which uses AI to verbally respond to oral user messages. Rizz.AI aims to simulate the tumultuous environment of modern social economics through constructed AI personalities. Any resemblance of real-world persons or characters is strictly coincidental and not intended for commercial use.
 
 Rizz.AI is powered by Google Gemini, ElevenLabs, and Whisper using Transformers.js. Due to Transformers.js downloading AI models directly in the browser, each browser instance of the web application will have a one-time download process which will be skipped for further subsequent recordings. Recordings are processed locally and not sent to outside servers.
 
